@@ -1,7 +1,6 @@
 import { Injectable, Req } from '@nestjs/common';
-import { Request } from 'express';
 import { IsNotEmpty} from 'class-validator';
-import { ProductsController } from './products.controller';
+
 export class Product {
     id?: string;
     
@@ -28,8 +27,11 @@ export class ProductsService {
        this.products.push(newProduct);
        return newProduct; 
     }
+<<<<<<< HEAD
 
     getAll(): Product[] {
         return this.products;
     }
+=======
+>>>>>>> d6f2e7e2de29ff2e57a3fc8654250c765faf4d81
 }
