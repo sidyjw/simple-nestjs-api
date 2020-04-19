@@ -1,4 +1,4 @@
-import { Injectable, Req } from '@nestjs/common';
+import { Injectable, Req, NotFoundException } from '@nestjs/common';
 import { IsNotEmpty} from 'class-validator';
 
 export class Product {
@@ -22,16 +22,32 @@ export class ProductsService {
 
    insertProduct(product: Product): Product {
        const newProduct = product;
-       newProduct.id = new Date().toString();
+       newProduct.id = this.products.length.toString();
        
        this.products.push(newProduct);
        return newProduct; 
     }
-<<<<<<< HEAD
 
     getAll(): Product[] {
         return this.products;
     }
-=======
->>>>>>> d6f2e7e2de29ff2e57a3fc8654250c765faf4d81
+
+    getOne(id:number):Product {
+        if(id > this.products.length) throw new NotFoundException('Não foi possível encontrar o produto.');
+
+        return this.products[id];
+    }
+
+    updateProduct(product: Product): Product {
+        if( !product || !product.id || product.id > this.products.length.toString()) 
+            throw new NotFoundException('Não foi possível atualizar o produto.');
+        
+        this.products[product.id] = product;
+
+        return this.products[product.id];
+    }
+
+    deleteProduct(id: number) {
+        this.products.splice(id, 1);
+    }
 }
